@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CapacitaFácil – Resolva sua Esfera</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #e6f4ea;
+      margin: 0;
+      padding: 20px;
+      color: #222;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      color: #2f855a;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: #48bb78;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .resultado {
+      background-color: #f0fff4;
+      border-left: 6px solid #38a169;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+    .separador {
+      margin: 30px 0;
+      border-top: 2px dashed #c6f6d5;
+    }
+    .topo {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .topo a {
+      background-color: #c6f6d5;
+      color: #22543d;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+    .teoria {
+      background-color: #f0fff4;
+      padding: 20px;
+      border-left: 6px solid #38a169;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+    .quiz {
+      margin-top: 40px;
+    }
+    .quiz-question {
+      margin-bottom: 20px;
+    }
+  </style>
+  <!-- MathJax -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="container" id="topo">
+    <h1>📗 CapacitaFácil</h1>
+    <p style="text-align:center;">Resolva e entenda a capacitância de condutores esféricos!</p>
+
+    <div class="teoria">
+      <h2>📚 Teoria Detalhada</h2>
+      <p>Capacitância é a capacidade que um corpo tem de armazenar carga elétrica. No caso da eletrostática, analisamos essa propriedade para condutores isolados, como uma esfera metálica no vácuo. Essa esfera pode acumular carga em sua superfície e gerar um campo elétrico ao seu redor.</p>
+      <p>A capacitância é definida por:</p>
+      <ul>
+        <li>\( C = \frac{Q}{V} \), onde \( Q \) é a carga acumulada (em Coulombs) e \( V \) é o potencial elétrico (em Volts).</li>
+        <li>Para uma esfera isolada no vácuo, temos \( C = \frac{R}{k_0} \), sendo \( R \) o raio da esfera e \( k_0 = 9 \times 10^9 \ \text{N·m}^2/\text{C}^2 \).</li>
+      </ul>
+      <p>Essas fórmulas são válidas para sistemas eletrostáticos onde não há movimento de cargas. A capacitância depende apenas das dimensões geométricas e das propriedades do meio (vácuo, ar, etc.), e não da quantidade de carga.</p>
+    </div>
+
+    <h2>Modo 1: \( C = \frac{Q}{V} \)</h2>
+    <label for="q">Carga (Q) em Coulombs:</label>
+    <input type="number" id="q" step="any" placeholder="Ex: 2e-6" />
+    <label for="v">Potencial (V) em Volts:</label>
+    <input type="number" id="v" step="any" placeholder="Ex: 500" />
+    <button onclick="calcularQV()">Calcular Capacitância</button>
+    <div id="resultadoQV" class="resultado" style="display:none;"></div>
+
+    <div class="separador"></div>
+
+    <h2>Modo 2: \( C = \frac{R}{k_0} \)</h2>
+    <label for="r">Raio (R) em metros:</label>
+    <input type="number" id="r" step="any" placeholder="Ex: 0.05" />
+    <button onclick="calcularRaio()">Calcular Capacitância</button>
+    <div id="resultadoR" class="resultado" style="display:none;"></div>
+
+    <div class="quiz">
+      <h2>🧠 Quiz Rápido</h2>
+      <form id="quizForm">
+        <div class="quiz-question">
+          <p>1. Qual a fórmula geral da capacitância?</p>
+          <select>
+            <option value="">Selecione</option>
+            <option value="errado">C = V/Q</option>
+            <option value="certo">C = Q/V</option>
+            <option value="errado">C = R·k0</option>
+          </select>
+        </div>
+        <div class="quiz-question">
+          <p>2. A constante \( k_0 \) vale aproximadamente:</p>
+          <select>
+            <option value="">Selecione</option>
+            <option value="certo">9 × 10⁹ N·m²/C²</option>
+            <option value="errado">8.85 × 10¹² N·m²/C²</option>
+            <option value="errado">3 × 10⁸ m/s</option>
+          </select>
+        </div>
+        <div class="quiz-question">
+          <p>3. A capacitância de uma esfera depende de:</p>
+          <select>
+            <option value="">Selecione</option>
+            <option value="certo">Seu raio</option>
+            <option value="errado">Sua densidade</option>
+            <option value="errado">Sua cor</option>
+          </select>
+        </div>
+        <div class="quiz-question">
+          <p>4. A unidade da capacitância é:</p>
+          <select>
+            <option value="">Selecione</option>
+            <option value="errado">Volt</option>
+            <option value="errado">Coulomb</option>
+            <option value="certo">Farad</option>
+          </select>
+        </div>
+        <div class="quiz-question">
+          <p>5. O valor da capacitância aumenta quando:</p>
+          <select>
+            <option value="">Selecione</option>
+            <option value="certo">O raio da esfera aumenta</option>
+            <option value="errado">O raio da esfera diminui</option>
+            <option value="errado">O potencial diminui</option>
+          </select>
+        </div>
+        <button type="button" onclick="corrigirQuiz()">Corrigir Quiz</button>
+        <div id="quizResultado" class="resultado" style="display:none;"></div>
+      </form>
+    </div>
+
+    <div class="topo">
+      <a href="#topo">🔝 Voltar ao Topo</a>
+    </div>
+  </div>
+
+  <script>
+    const k0 = 9e9;
+
+    function calcularQV() {
+      const q = parseFloat(document.getElementById("q").value);
+      const v = parseFloat(document.getElementById("v").value);
+      const res = document.getElementById("resultadoQV");
+      if (!isNaN(q) && !isNaN(v) && v !== 0) {
+        const c = q / v;
+        res.innerHTML = `\[
+          C = \frac{${q}}{${v}} = ${c.toExponential(3)}\ \text{F}
+        \] <p>Você usou a fórmula \( C = \frac{Q}{V} \).</p>`;
+        res.style.display = "block";
+        MathJax.typesetPromise();
+      } else {
+        res.innerHTML = "<p>Preencha os dois campos corretamente.</p>";
+        res.style.display = "block";
+      }
+    }
+
+    function calcularRaio() {
+      const r = parseFloat(document.getElementById("r").value);
+      const res = document.getElementById("resultadoR");
+      if (!isNaN(r)) {
+        const c = r / k0;
+        res.innerHTML = `\[
+          C = \frac{${r}}{9 \times 10^9} = ${c.toExponential(3)}\ \text{F}
+        \] <p>Você usou a fórmula \( C = \frac{R}{k_0} \).</p>`;
+        res.style.display = "block";
+        MathJax.typesetPromise();
+      } else {
+        res.innerHTML = "<p>Digite um valor válido para o raio.</p>";
+        res.style.display = "block";
+      }
+    }
+
+    function corrigirQuiz() {
+      const selects = document.querySelectorAll("#quizForm select");
+      let acertos = 0;
+      selects.forEach(sel => {
+        if (sel.value === "certo") acertos++;
+      });
+      const resultado = document.getElementById("quizResultado");
+      resultado.innerHTML = `<p>Você acertou <strong>${acertos}</strong> de 5 perguntas.</p>`;
+      resultado.style.display = "block";
+    }
+  </script>
+</body>
+</html>
